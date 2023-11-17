@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Fetch";
+}
+
+<h1>Fetch</h1>
+<img id="img1"/>
+<ul id="ull"></ul>
+@section Scripts
+{<script> 
+    fetch('@Url.Content("~/api/index")?name=Mary&age=30')
+    .then(response=>response.text())
+    .then(data=>console.log(data))
+
+
+         fetch('@Url.Content("~/api/cities")')
+         .then(Response=>Response.json())
+         .then(datas=>{
+             const cities =datas.map(city=>`<li>${city}</li>`)
+             document.querySelector('#ull').innerHTML=cities.join("")
+         })
+
+         fetch('@Url.Content("~/api/GetImageByte/3")')
+         .then(Response=>Response.blob())
+             .then(datas => {
+                 document.querySelector('#img1').src = URL.createObjectURL(datas);
+             })
+</script>
+  }

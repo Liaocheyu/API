@@ -1,0 +1,76 @@
+﻿﻿
+@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First</h1>
+<button id="buttonStart" class="btn btn-primary">Ajax Start</button>
+<button id="buttonStop" class="btn btn-primary">Ajax Stop</button>
+<div id="div1" class="alert alert-info"></div>
+
+@section Scripts{
+    <script src="~/datas/travel.js"></script>
+    <script>
+        console.log(spots);
+        const btn = document.querySelector('#buttonStart');
+        const btnStop = document.querySelector('#buttonStop');
+        const theDiv = document.querySelector('#div1');
+       const xhr = new XMLHttpRequest();
+
+
+        btnStop.addEventListener('click', () => {
+            xhr.abort();//停止ajax程式
+        })
+        btn.addEventListener('click', () => {
+
+
+            xhr.addEventListener('loadstart', () => {
+                theDiv.innerHTML += "Ajax開始<br />"
+                imgLoading.style.display = "inline";
+                btn.setAttribute('disabled', 'disabled');
+                btn.innerHTML = "Loading...";
+
+            })
+            xhr.addEventListener('loadend', () => {
+                theDiv.innerHTML += "Ajax結束<br />"
+                imgLoading.style.display = "none";
+                btn.removeAttribute("disabled");
+                btn.innerHTML = "Ajax Start";
+
+            })
+
+            xhr.addEventListener('load', () => {
+                const data = xhr.responseText;            
+                theDiv.innerHTML = data;
+            
+                xhr.addEventListener('timeout', () => {
+                    theDiv.innerHTML += '伺服器忙碌中，請稍後再來< br />';
+                })
+
+                //abort方法被呼叫會觸發此事件
+                xhr.addEventListener('abort', () => {
+                    theDiv.innerHTML += '您停止了程式的執行< br />';
+                })
+
+
+                //要設定在open()方法之後
+              
+
+
+
+            })
+
+xhr.open('GET', '@Url.Content("~/Api/index")?name=Jack&age=30'); 
+xhr.timeout = 3000;
+            xhr.send();
+
+        })
+
+
+
+
+    </script>
+}
+
+}
+
