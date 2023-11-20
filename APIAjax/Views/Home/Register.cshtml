@@ -92,7 +92,10 @@
                      const data =xhr.responseText;
                      divCheck.innerHTML=data;
                  })
-                 const form
+                 const formData =new FormData (document.querySelector('#memberForm'));
+                 xhr.open('POST','@Url.Content("~/api/checkAccount")');
+                 xhr.send(formData);
+             })
 
                  
     </script>
