@@ -1,5 +1,6 @@
 ﻿using APIAjax.Models;
 using Microsoft.AspNetCore.Mvc;
+using MSIT153Site.Models.ViewModel;
 using System.Diagnostics;
 
 namespace APIAjax.Controllers
@@ -66,6 +67,26 @@ namespace APIAjax.Controllers
         {
             ViewBag.gay = "URGayFromPartial2";
             return PartialView();
+        }
+        public IActionResult checkAccount(MemberViewModel? member)
+        {
+            if (member != null) 
+            {
+                string txt = member.name;
+                if (txt != null)
+                {
+                    string feedback = "123";
+                    foreach(var item in _context.Members)
+                    {
+                        if(item.Name == txt)
+                        {
+                            feedback = "000";
+                        }
+                    }
+                    return Content(feedback);
+                }
+            }
+            return Content("000");
         }
     }
 }

@@ -83,5 +83,17 @@
                      location.href='@Url.Content("~/home/members")';
                  }
              })
+
+             const divCheck= document.querySelector('#div2');
+             const txtName =document.querySelector('#inputName');
+             txtName.addEventListener('blur',())=>{
+                 const xhr =new XMLHttpRequest();
+                 xhr.addEventListener('load',()=>{
+                     const data =xhr.responseText;
+                     divCheck.innerHTML=data;
+                 })
+                 const form
+
+                 
     </script>
 }
